@@ -3,7 +3,6 @@ import { useState, useMemo } from 'react';
 import { Search, Filter, Download, Plus, Calendar, ArrowUpDown, ChevronDown, X, DollarSign, Tag, CreditCard as CreditCardIcon } from 'lucide-react';
 import { useFinancialData } from '@/hooks/useFinancialData';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 type FilterType = 'all' | 'income' | 'expense';
 type SortField = 'date' | 'amount' | 'category';
@@ -168,17 +167,17 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 px-2 sm:px-0">
+    <div className="space-y-4 sm:space-y-6 w-full max-w-full overflow-x-hidden">
       {/* Header */}
-      <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between gap-4 px-2 sm:px-0">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Transactions</h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 break-words">Transactions</h1>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1 break-words">
             Showing {filteredTransactions.length} of {transactions.length} transactions
           </p>
         </div>
         
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {bulkSelectMode && selectedTransactions.size > 0 && (
             <button 
               onClick={() => {
@@ -186,7 +185,7 @@ export default function TransactionsPage() {
                   handleBulkDelete();
                 }
               }}
-              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap"
             >
               <span>Delete ({selectedTransactions.size})</span>
             </button>
@@ -196,28 +195,28 @@ export default function TransactionsPage() {
               setBulkSelectMode(!bulkSelectMode);
               setSelectedTransactions(new Set());
             }}
-            className={`flex items-center gap-2 px-3 sm:px-4 py-2 border rounded-lg transition-colors text-xs sm:text-sm font-medium ${
+            className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 border rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap ${
               bulkSelectMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300 hover:bg-gray-50'
             }`}
           >
             {bulkSelectMode ? 'Cancel' : 'Select'}
           </button>
-          <button className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm font-medium">
+          <button className="hidden sm:flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap">
             <Download className="w-4 h-4" />
             <span>Export</span>
           </button>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#225BA4] text-white rounded-lg hover:bg-[#225BA4]/90 transition-colors text-xs sm:text-sm font-medium"
+            className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 bg-[#225BA4] text-white rounded-lg hover:bg-[#225BA4]/90 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap"
           >
-            <Plus className="w-4 h-4" />
-            <span className="hidden xs:inline">Add</span>
+            <Plus className="w-4 h-4 flex-shrink-0" />
+            <span>Add</span>
           </button>
         </div>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-2 sm:px-0">
         {/* Total Income Card */}
         <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -288,10 +287,10 @@ export default function TransactionsPage() {
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white rounded-lg border border-gray-200 p-3 sm:p-4">
+      <div className="bg-white rounded-lg border border-gray-200 p-3 sm:p-4 mx-2 sm:mx-0">
         <div className="flex flex-col gap-3 sm:gap-4">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <div className="flex-1 relative">
+            <div className="flex-1 relative min-w-0">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
@@ -312,10 +311,10 @@ export default function TransactionsPage() {
             </button>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-2 px-2 sm:mx-0 sm:px-0">
             <button
               onClick={() => setFilterType('all')}
-              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                 filterType === 'all'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -325,7 +324,7 @@ export default function TransactionsPage() {
             </button>
             <button
               onClick={() => setFilterType('income')}
-              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                 filterType === 'income'
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -335,7 +334,7 @@ export default function TransactionsPage() {
             </button>
             <button
               onClick={() => setFilterType('expense')}
-              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                 filterType === 'expense'
                   ? 'bg-red-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -346,7 +345,7 @@ export default function TransactionsPage() {
             
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="hidden sm:flex flex-shrink-0 items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-xs sm:text-sm font-medium transition-colors ml-auto"
+              className="hidden sm:flex flex-shrink-0 items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-xs sm:text-sm font-medium transition-colors ml-auto whitespace-nowrap"
             >
               <Filter className="w-4 h-4" />
               Filters
@@ -391,7 +390,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* Transactions Table - Desktop */}
-      <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden mx-2 sm:mx-0">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -525,9 +524,9 @@ export default function TransactionsPage() {
       </div>
 
       {/* Transactions List - Mobile */}
-      <div className="md:hidden space-y-3">
+      <div className="md:hidden space-y-3 px-2">
         {filteredTransactions.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-8 text-center text-gray-500">
+          <div className="bg-white rounded-lg border border-gray-200 p-8 text-center text-gray-500 text-sm">
             No transactions found
           </div>
         ) : (
@@ -535,10 +534,10 @@ export default function TransactionsPage() {
             <div
               key={transaction.id}
               onClick={() => !bulkSelectMode && setSelectedTransaction(transaction.id)}
-              className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
+              className="bg-white rounded-lg border border-gray-200 p-3 hover:shadow-md transition-shadow cursor-pointer"
             >
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3 flex-1">
+              <div className="flex items-start justify-between mb-2 gap-2">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
                   {bulkSelectMode && (
                     <input
                       type="checkbox"
@@ -547,19 +546,19 @@ export default function TransactionsPage() {
                         e.stopPropagation();
                         toggleBulkSelect(transaction.id);
                       }}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
                     />
                   )}
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                     transaction.type === 'income'
                       ? 'bg-green-100 text-green-600'
                       : 'bg-red-100 text-red-600'
                   }`}>
-                    {transaction.type === 'income' ? '↗' : '↙'}
+                    <span className="text-sm">{transaction.type === 'income' ? '↗' : '↙'}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{transaction.description}</p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="font-medium text-gray-900 truncate text-sm">{transaction.description}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">
                       {new Date(transaction.date).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
@@ -568,11 +567,11 @@ export default function TransactionsPage() {
                     </p>
                   </div>
                 </div>
-                <div className="text-right flex-shrink-0 ml-2">
-                  <p className={`font-semibold text-sm ${transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
+                <div className="text-right flex-shrink-0">
+                  <p className={`font-semibold text-sm whitespace-nowrap ${transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                     {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}
                   </p>
-                  <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full mt-1 ${
+                  <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full mt-1 whitespace-nowrap ${
                     transaction.status === 'completed'
                       ? 'bg-green-100 text-green-800'
                       : transaction.status === 'pending'
@@ -583,10 +582,10 @@ export default function TransactionsPage() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="px-2 py-1 bg-gray-100 rounded-full">{transaction.category}</span>
+              <div className="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
+                <span className="px-2 py-0.5 bg-gray-100 rounded-full whitespace-nowrap">{transaction.category}</span>
                 <span>•</span>
-                <span>{transaction.paymentMethod}</span>
+                <span className="truncate">{transaction.paymentMethod}</span>
               </div>
             </div>
           ))
